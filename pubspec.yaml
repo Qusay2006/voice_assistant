@@ -17,6 +17,9 @@ dependencies:
   get_it: ^9.2.1
   flutter_bloc : ^8.1.4
   build_runner: ^2.4.8
+  dio: ^5.11.1
+  flutter_tts: ^4.2.5
+  equatable: ^3.0.0
 
 
 

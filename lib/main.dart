@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:voice_assistant/core/injection/injection.dart';
 import 'package:voice_assistant/core/them/pallete.dart';
-import 'package:voice_assistant/presintation/page/home_page.dart';
+import 'package:voice_assistant/presentation/page/home_page.dart';
 
-void main() {
-  DI();
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+ await DI();
   runApp(const MyApp());
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:voice_assistant/data/speach_to_text.dart';
-import 'package:voice_assistant/presintation/cubit/speach_state.dart';
+import 'package:voice_assistant/data/repo/speech_to_text.dart';
+import 'package:voice_assistant/presentation/cubit/speechToText/speach_state.dart';
 
 @injectable
 class SpeachCubit extends Cubit<SpeachState>{
@@ -28,7 +28,7 @@ class SpeachCubit extends Cubit<SpeachState>{
   }
 
   Future<void>initializing()async{
-   final isTrue = await _speach.initSpeechToText();
+   final isTrue = await _speach.init();
    isTrue ? emit(state.copyWith(permission: true)):
    emit(state.copyWith(permission: false,error: 'Microphone permission denied or not available'));
   }

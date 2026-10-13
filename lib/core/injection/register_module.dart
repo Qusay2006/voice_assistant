@@ -5,10 +5,12 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 @module
 abstract class RegisterModule {
+  @LazySingleton()
   Dio get dio => Dio();
-@lazySingleton
-SpeechToText get speechToText => SpeechToText();
 
-@lazySingleton
+  @lazySingleton
+  SpeechToText get speechToText => SpeechToText();
+
+  @lazySingleton
   FlutterTts get flutterTts => FlutterTts();
 }

@@ -6,13 +6,11 @@ import 'package:voice_assistant/presentation/cubit/textToSpeech/text_to_speech_c
 import 'package:voice_assistant/presentation/widget/agent_pfp.dart';
 import 'package:voice_assistant/presentation/widget/agent_text_field.dart';
 import 'package:voice_assistant/presentation/widget/features_list.dart';
-
 import '../cubit/openAi/open_ai_cubit.dart';
 import '../cubit/openAi/open_ai_state.dart';
 import '../cubit/speechToText/speach_cubit.dart';
 import '../cubit/speechToText/speach_state.dart';
-import '../widget/feature_box.dart';
-import '../widget/features_list.dart';
+import '../cubit/textToSpeech/text_to_speech_state.dart';
 
 class HomeProvider extends StatelessWidget {
   const HomeProvider({super.key});
@@ -31,25 +29,54 @@ class HomeProvider extends StatelessWidget {
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  void _showError(BuildContext context, String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(listeners: [
+
       // Send to OpenAI
       BlocListener<SpeachCubit, SpeachState>(
-        listener: (context, speachState) {
-          if (!speachState.isListening && speachState.words.trim().isNotEmpty) {
-            context.read<OpenAiCubit>().processPrompt(speachState.words);
-          }
-        },
-      ),
+          listener: (context, speachState) {
+            if (!speachState.isListening && speachState.words
+                .trim()
+                .isNotEmpty) {
+              context.read<OpenAiCubit>().processPrompt(speachState.words);
+            }
+          }),
+
+
       //response From OpenAi
       BlocListener<OpenAiCubit, OpenAiState>(
         listener: (context, openAiState) {
-          if(openAiState.response.isNotEmpty&&!openAiState.isImage){
+          if (openAiState.response.isNotEmpty && !openAiState.isImage) {
             context.read<TextToSpeechCubit>().speak(openAiState.response);
           }
         },
       ),
+
+      //showError
+      BlocListener<OpenAiCubit, OpenAiState>(
+        listener: (context, state) {
+          if(state.error!=null)
+          _showError(context, state.error.toString());
+        },),
+      BlocListener<SpeachCubit, SpeachState>(
+        listener: (context, state) {
+          if(state.error!=null)
+            _showError(context, state.error.toString());
+        },),
+      BlocListener<TextToSpeechCubit, TextToSpeechState>(
+        listener: (context, state) {
+          if(state.error!=null)
+            _showError(context, state.error.toString());
+        },)
+
+
     ], child:
     Scaffold(appBar: AppBar(
       title: const Text("Allen"),
@@ -57,34 +84,42 @@ class HomePage extends StatelessWidget {
       centerTitle: true,),
         body: SingleChildScrollView(
             child: Column(children: [
+
+
               // Agent Pfp
               AgentPfp(),
+
+
               // Agent TextField
               AgentTextField(),
+
+
               //features list
               BlocBuilder<OpenAiCubit, OpenAiState>(builder: (context, state) {
-                if(state.response.isEmpty&&state.isLoading)
-                    return const FeaturesList();
-                else{
-                return const SizedBox.shrink();
-              }
+                if (state.response.isEmpty && !state.isLoading)
+                  return const FeaturesList();
+                else {
+                  return const SizedBox.shrink();
+                }
               },)
             ])
         ),
+
+
+
+
         //mic
-        floatingActionButton: BlocBuilder<SpeachCubit, SpeachState>(builder: (context, state) {
-          return  FloatingActionButton(onPressed: () async {
-            final cubit =await context.read<SpeachCubit>();
-            if(state.permission) {
-              state.isListening? cubit.stop() :cubit.start();
-            }
-            else {
-              cubit.initializing();
-            }
-          },child: state.isListening? Icon(Icons.mic):Icon(Icons.mic_off),
-            backgroundColor: Pallete.firstSuggestionBoxColor,);
-        },)
-      )
+        floatingActionButton: BlocBuilder<SpeachCubit, SpeachState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+              onPressed: () {
+                final cubit = context.read<SpeachCubit>();
+                state.isListening ? cubit.stop() : cubit.start();
+              },
+              child: state.isListening ? Icon(Icons.mic) : Icon(Icons.mic_off),
+              backgroundColor: Pallete.firstSuggestionBoxColor,);
+          },)
+    )
     );
   }
 }

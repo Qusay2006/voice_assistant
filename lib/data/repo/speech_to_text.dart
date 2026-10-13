@@ -2,7 +2,10 @@ import 'package:injectable/injectable.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 abstract interface class SpeechToTextRepo {
-  Future<bool> init();
+  Future<bool> init({
+    void Function(String status)? onStatus,
+    void Function(String error)? onError,
+  });
   Future<void> startListening(void Function(String words) onResult);
   Future<void> stopListening();
 }
@@ -16,8 +19,14 @@ class SpeechToTextRepoImpl implements SpeechToTextRepo {
 
 
   @override
-  Future<bool> init() async{
-    return await _speechToText.initialize();
+  Future<bool> init({
+    void Function(String status)? onStatus,
+    void Function(String error)? onError,
+  }) async {
+    return await _speechToText.initialize(
+      onStatus: onStatus,
+      onError: (e) => onError?.call(e.errorMsg),
+    );
   }
 
   @override

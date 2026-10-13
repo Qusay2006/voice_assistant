@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocListener(listeners: [
 
-      // Send to OpenAI
+      // Send to AI
       BlocListener<SpeachCubit, SpeachState>(
           listener: (context, speachState) {
             if (!speachState.isListening && speachState.words
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
           }),
 
 
-      //response From OpenAi
+      //response From Ai
       BlocListener<OpenAiCubit, OpenAiState>(
         listener: (context, openAiState) {
           if (openAiState.response.isNotEmpty && !openAiState.isImage) {

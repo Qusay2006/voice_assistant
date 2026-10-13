@@ -21,7 +21,7 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
 
         // --- التعديل هنا: تحديد minSdk كحد أدنى 21 لتتوافق مع flutter_tts ---
-        minSdk = 21
+        minSdk = flutter.minSdkVersion
 
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

@@ -1,18 +1,18 @@
 import 'package:injectable/injectable.dart';
 
-import '../data/open_ai_data.dart';
+import '../data/ai_service_data.dart';
 
 abstract interface class OpenAiRepo {
   Future<String> processPrompt(String prompt);
-  Future<String> getChatResponse(String prompt);
+  Future<String> getResponse(String prompt);
   Future<String> generateImage(String prompt);
 }
 
 @LazySingleton(as: OpenAiRepo)
 class OpenAiRepoImpl implements OpenAiRepo {
-  final OpenAiData _openAiData;
+  final AiServiceData _openAiData;
 
-  OpenAiRepoImpl({required OpenAiData openAiData}) : _openAiData = openAiData;
+  OpenAiRepoImpl({required AiServiceData openAiData}) : _openAiData = openAiData;
 
   @override
   Future<String> processPrompt(String prompt) async {
@@ -26,11 +26,11 @@ class OpenAiRepoImpl implements OpenAiRepo {
   }
 
   @override
-  Future<String> getChatResponse(String prompt) async {
+  Future<String> getResponse(String prompt) async {
     try {
       if (prompt.trim().isEmpty)
         return '';
-      return await _openAiData.chatGpt(prompt);
+      return await _openAiData.geminiChat(prompt);
     } catch (e) {
       throw Exception('ChatGPT Error: $e');
     }
@@ -41,7 +41,7 @@ class OpenAiRepoImpl implements OpenAiRepo {
     try {
       if (prompt.trim().isEmpty)
         return '';
-      return await _openAiData.DallE(prompt);
+      return await _openAiData.generateImage(prompt);
     } catch (e) {
       throw Exception('DALL-E Error: $e');
     }

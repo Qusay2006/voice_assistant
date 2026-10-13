@@ -37,7 +37,7 @@ class OpenAiCubit extends Cubit<OpenAiState> {
     emit(state.copyWith(isLoading: true, error: null));
 
     try {
-      final result = await _openAiRepo.getChatResponse(prompt);
+      final result = await _openAiRepo.getResponse(prompt);
 
       emit(state.copyWith(
         response: result,

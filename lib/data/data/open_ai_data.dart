@@ -11,6 +11,7 @@ Future<String> DallE(String prompt);
 @LazySingleton(as: OpenAiData)
 class OpenAiDataImpl implements OpenAiData {
   final Dio _dio;
+ // const String apiKey = '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';
 
   OpenAiDataImpl({required this._dio});
   //لحتى يتذكر ال شات حكينا

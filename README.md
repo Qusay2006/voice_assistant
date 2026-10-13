@@ -58,4 +58,4 @@ flutter run
 
 ## 👤 Author
 
-**Qusai Meshow** · [LinkedIn](https://www.linkedin.com/in/qusay-masho-88b6a143b)
+**Qusai Meshow** · [LinkedIn](https://www.linkedin.com/in/qusay-masho-ab4a6543b/)

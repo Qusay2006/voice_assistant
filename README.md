@@ -8,7 +8,7 @@ Built to practice **Clean Architecture**, **Cubit**, and working with **AI APIs*
 
 | Home Page | Question | Listening / Processing | Answer | Generated Photo |
 | :---: | :---: | :---: | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/00a2af67-bf1d-44c1-a94d-e4c9073bf87b" width="180" /> | <img src="https://github.com/user-attachments/assets/07135e20-cee7-4c16-83d9-1832f20e988f" width="175" /> | <img src="https://github.com/user-attachments/assets/4606cae9-7d32-44da-a11a-db3200a9ec4f" width="180" /> | <img src="https://github.com/user-attachments/assets/3ca6201d-b3e3-400d-bf79-f798516b2cda" width="180" /> | <img src="https://github.com/user-attachments/assets/6e67feb2-1992-48ab-b8ff-46b03a871b2f" width="180" /> |
+| <img src="https://github.com/user-attachments/assets/0d9e73b2-3c7a-433f-821b-a0cc48773e0e" width="160" /> | <img src="https://github.com/user-attachments/assets/5bc09296-ef8e-4030-b775-1e0056bab832" width="160" /> | <img src="https://github.com/user-attachments/assets/4606cae9-7d32-44da-a11a-db3200a9ec4f" width="160" /> | <img src="https://github.com/user-attachments/assets/3ca6201d-b3e3-400d-bf79-f798516b2cda" width="160" /> | <img src="https://github.com/user-attachments/assets/6e67feb2-1992-48ab-b8ff-46b03a871b2f" width="160" /> |
 
 
 ## ✨ Features

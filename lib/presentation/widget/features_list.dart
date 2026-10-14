@@ -22,9 +22,9 @@ class FeaturesList extends StatelessWidget {
 
     ),
     Column(children: [
-    FeatureBox(pallete: Pallete.firstSuggestionBoxColor,title: "ChatGPT",subtitle: 'A smarter way to stay organized and informed with ChatGPT',),
-    FeatureBox(pallete: Pallete.secondSuggestionBoxColor,title: "Dall-E",subtitle: 'Get inspired and stay creative with your personal assistant powered by Dall-E',),
-    FeatureBox(pallete: Pallete.thirdSuggestionBoxColor,title: "Smart Voice Assistant",subtitle: 'Get the best of both with a voice assistant powered by Dall-E and ChatGPT',)
+    FeatureBox(pallete: Pallete.firstSuggestionBoxColor,title: "Gemini",subtitle: 'A smarter way to stay organized and informed with Gemini',),
+    FeatureBox(pallete: Pallete.secondSuggestionBoxColor,title: "Generated Image",subtitle: 'Get inspired and stay creative with your personal assistant powered by Generative AI',),
+    FeatureBox(pallete: Pallete.thirdSuggestionBoxColor,title: "Smart Voice Assistant",subtitle: 'Get the best of both with a voice assistant powered by Dall-E and gemini',)
     ],),
       ]);
 

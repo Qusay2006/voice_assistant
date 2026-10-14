@@ -23,7 +23,8 @@ class AiServiceDataImpl implements AiServiceData {
   @override
   Future<String> isArtFromApi(String prompt) async {
     const intentInstruction = {
-      'text': 'Read the user prompt and determine if they want to create an image, like generating, drawing, or showing a picture, or if they want to have a text conversation. Return "image" if they want to generate an image and "text" if they want a text conversation. Return ONLY "image" or "text".',
+      'text': 'Read the user prompt and determine if they want to create an image,'
+          ' like generating, drawing, or showing a picture, or if they want to have a text conversation. Return "image" if they want to generate an image and "text" if they want a text conversation. Return ONLY "image" or "text".',
     };
 
     try {
@@ -47,10 +48,7 @@ class AiServiceDataImpl implements AiServiceData {
             ],
           });
 
-      String detectedIntent = result.data['candidates'][0]['content']['parts'][0]['text']
-          .toString()
-          .trim()
-          .toLowerCase();
+      String detectedIntent = result.data['candidates'][0]['content']['parts'][0]['text'].toString().trim().toLowerCase();
 
       if (detectedIntent.contains('image')) {
         return generateImage(prompt);
@@ -77,6 +75,7 @@ class AiServiceDataImpl implements AiServiceData {
                 'x-goog-api-key': apiKey,
               }),
           data: {
+            // قواعد نعطيا لai
             'systemInstruction': {
               'parts': [
                 {
@@ -95,15 +94,14 @@ class AiServiceDataImpl implements AiServiceData {
             })
                 .toList(),
           });
-
-      String text = result.data['candidates'][0]['content']['parts'][0]['text']
-          .toString()
-          .trim();
+      // عم نجيب الرد اللي بعتناه
+      String text = result.data['candidates'][0]['content']['parts'][0]['text'].toString().trim();
+      // ضفناها لليست
       messages.add({'role': 'assistant', 'content': text});
       return text;
+
     } on DioException catch (e) {
       messages.removeLast();
-      print(e.response?.data);
       throw Exception(e.response?.data?.toString() ?? e.message);
     } catch (e) {
       messages.removeLast();
@@ -117,6 +115,7 @@ class AiServiceDataImpl implements AiServiceData {
   @override
   Future<String> generateImage(String prompt) async {
     try {
+      //بياخد النص وبحولو لرابط شغال متل المساحة بحولا ل% وغير شغلات
       final encoded = Uri.encodeComponent(prompt);
 
       return 'https://image.pollinations.ai/prompt/$encoded?model=turbo';

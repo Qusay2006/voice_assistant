@@ -30,30 +30,21 @@ class SpeachCubit extends Cubit<SpeachState>{
   }
 
   Future<void> initializing() async {
-    final isTrue = await _speach.init(
-      onStatus: _onStatus,   // ← جديد
-      onError: _onError,     // ← جديد
-    );
-    if (isClosed) return;
+    final isTrue = await _speach.init(onStatus: _onStatus, onError: _onError,);
     isTrue
         ? emit(state.copyWith(permission: true))
         : emit(state.copyWith(
         permission: false,
         error: 'Microphone permission denied or not available'));
   }
-
-  // ← جديد: المكتبة بتناديها لما تتغير حالتها
+  // لما المستخدم يسكت بيتسكر المايك
   void _onStatus(String status) {
-    if (isClosed) return;
-    // 'done' = خلصت، حتى لو وقفت لحالها بسبب الصمت
     if (status == 'done' && state.isListening) {
       emit(state.copyWith(isListening: false));
     }
   }
 
-  // ← جديد: المكتبة بتناديها لما يصير خطأ
   void _onError(String message) {
-    if (isClosed) return;
     emit(state.copyWith(isListening: false, error: message));
   }
 }

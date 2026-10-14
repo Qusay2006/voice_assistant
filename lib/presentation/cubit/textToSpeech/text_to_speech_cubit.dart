@@ -22,12 +22,8 @@ class TextToSpeechCubit extends Cubit<TextToSpeechState> {
     if (content.trim().isEmpty)
       return;
 
-    emit(state.copyWith(
-      isSpeaking: true,
-      currentText: content,
-      error: null,
+    emit(state.copyWith(isSpeaking: true, currentText: content, error: null,
     ));
-
     try {
       await _ttsRepo.speak(content);
       emit(state.copyWith(isSpeaking: false));
